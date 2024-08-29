@@ -1,0 +1,428 @@
+html{
+  scroll-behavior: smooth;
+}
+
+model-viewer {
+  height: 500px;
+  background-color:azure;
+  border-radius: 15px;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  width: 100%;
+
+}
+
+body{
+  height: 2000px;
+}
+
+#ECGbox{
+  background-color: white;
+  left: 10%;
+  width: 500px;
+  height: 300px;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+}
+
+#ECGbox:before{
+  content: "";
+  background-image: conic-gradient(
+      #db2222 0deg,
+      transparent 100deg
+  );
+  width:300px;
+  height: 700%;
+  position: absolute;
+  animation: rotate 2s  linear infinite;
+}
+
+#ECGbox::after{
+  content:"Animation";
+  width: 490px;
+  height: 290px;
+  background-color:white;
+  position: absolute;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #db2222;
+  font-size: larger;
+}
+
+@keyframes rotate {
+  0%{
+      transform: rotate(0deg);
+  }
+  100%{
+      transform: rotate(-360deg);
+  }
+}
+
+#heart {
+  height: 25px;
+  width: 25px;
+  margin-left: 5px;
+  background:#db2222;
+  position: absolute;
+  transform: rotate(-45deg);
+  box-shadow: -5px 5px 45px #db2222;
+  animation: heart 1s linear infinite;
+  z-index: 1;
+  position: absolute;
+  top:8%;
+  left: 5%;
+}
+
+@keyframes heart {
+  0% {
+      transform: rotate(-45deg) scale(1.07)
+  }
+  80% {
+      transform: rotate(-45deg) scale(1.0)
+  }
+  100% {
+      transform: rotate(-45deg) scale(0.8)
+  }
+}
+
+#heart:before {
+  content: '';
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  background: #db2222;
+  top: -50%;
+  border-radius: 25px;
+}
+
+#heart:after {
+  content: '';
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  background: #db2222;
+  right: -50%;
+  border-radius: 25px;
+}
+
+#ECGplot{
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+#canvas1{
+  border-radius: 10px;
+  border: solid 3px black;
+  background-color: black;
+}
+
+#box2{
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  background-color: white;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 15px;
+}
+
+#heart2 {
+  height: 20px;
+  width: 20px;
+  transform: translate(-50%, -50%);
+  background:#db2222;
+  transform: rotate(-45deg);
+  position: absolute;
+}
+
+@keyframes heart {
+  0% {
+      transform: rotate(-45deg) scale(1.07)
+  }
+  80% {
+      transform: rotate(-45deg) scale(1.0)
+  }
+  100% {
+      transform: rotate(-45deg) scale(0.8)
+  }
+}
+
+#heart2:before {
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background: #db2222;
+  top: -50%;
+  border-radius: 25px;
+}
+
+#heart2:after {
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background: #db2222;
+  right: -50%;
+  border-radius: 25px;
+}
+
+#BPMbox{
+  background-color: white;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  border-radius: 10px;
+}
+
+#peaksBox{
+  background-color: white;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  border-radius: 10px;
+}
+
+#textBox{
+  background-color: white;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  border-radius: 10px;
+}
+
+#ECGplot2{
+  transform: translate(-50%, -50%);
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  border-radius: 10px;
+}
+
+#canvas2{
+  border-radius: 10px;
+  border: solid 3px black;
+  background-color: black;
+}
+
+#activityBox{
+  width: 75px;
+  height: 200px;
+  position: absolute;
+  background-color: white;
+  left: 45%;
+  top:19%;
+  border-radius: 10px;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  font-weight: bold;
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#timeStartedBox{
+  width: 200px;
+  height: 75px;
+  position: absolute;
+  background-color: white;
+  left: 56%;
+  top:51%;
+  border-radius: 10px;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  font-weight: bold;
+  font-size: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#clockBox{
+  height: 75px;
+  width: 75px;
+  background-color: white;
+  top:51%;
+  border-radius: 10px;
+  left: 74%;
+  position: absolute;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#clock{
+  font-size: 55px;
+  color: rgb(179, 202, 202);
+}
+
+#activityIconBox{
+  height: 75px;
+  width: 75px;
+  background-color: white;
+  top:51%;
+  border-radius: 10px;
+  left: 45%;
+  position: absolute;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#weight{
+  font-size: 55px;
+  color: rgb(179, 202, 202);
+}
+
+#avgBox{
+  height: 190px;
+  width: 410px;
+  background-color: white;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  position: absolute;
+  top: 65%;
+  left: 45%;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#avgIconBox{
+  width: 75px;
+  height: 190px;
+  top: 65%;
+  position: absolute;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  left: 79%;
+}
+
+#faceBox{
+  height: 125px;
+  width: 125px;
+  position: absolute;
+  background-color: white;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  border-radius: 10px;
+  left: 4%;
+  top: 75%;
+}
+
+#faceBox{
+  height: 125px;
+  width: 125px;
+  position: absolute;
+  background-color: white;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  border-radius: 10px;
+  left: 4%;
+  top: 75%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+#infoBox{
+  height: 125px;
+  width: 230px;
+  position: absolute;
+  background-color: white;
+  box-shadow: 10px 8px 20px rgb(22, 22, 22);
+  border-radius: 10px;
+  left: 16%;
+  top: 75%;
+  font-weight: bold;
+  font-size: 18px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+#photo{
+  width: 100px;
+  height: 100px;
+}
+
+#line2{
+  height: 100px;
+}
+
+.box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.my-custom-class {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: azure;
+}
+
+#barChart{
+  width: 600px;
+  height: 600px;
+}
+
+#linechart{
+  height: 200px;
+}
+
+.checkbox-label {
+color: blue;
+}
+
+input[type="checkbox"].switch:checked + .checkbox-label {
+}
+
+.scroll-down {
+  height: 50px;
+  width: 30px;
+  border: 2px solid black;
+  position: absolute;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.scroll-down::before,
+.scroll-down::after {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  height: 10px;
+  width: 10px;
+  transform: translate(-50%, -100%) rotate(45deg);
+  border: 2px solid black;
+  border-top: transparent;
+  border-left: transparent;
+  animation: scroll-down 1s ease-in-out infinite;
+}
+
+.scroll-down::before {
+  top: 30%;
+  animation-delay: 0.3s;
+}
+
+@keyframes scroll-down {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    top: 90%;
+    opacity: 0;
+  }
+}

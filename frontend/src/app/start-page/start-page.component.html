@@ -1,0 +1,45 @@
+<script src="https://unpkg.com/scrollreveal"></script>
+<body class="" style="background-image:url(../../assets/background.png); width: 100%; height: 100vh;">
+  <section class="section is-paddingless pt-6 pl-6" style="">
+    <div id="startBox" class="box is-desktop" style="width: 500px; margin-left: 50px; background-color: #2e4450 ; color: white; box-shadow: none;">
+      <div style="display: flex;">
+        <div class="field is-size-4" style="margin-top: 10px; margin-right: 20px;">
+          Welcome to
+        </div>
+        <div>
+          <img src="../../assets/logo.png" style="height: 60px;">
+        </div>
+      </div>
+      <div class="field is-size-5">
+        MotionInsights is an application developed by Lorenzo Bloise and Marco Leto for real time big data analysis
+      </div>
+      <div class="field is-size-5">
+        Set up the sensors, select the user and start to monitor your activities:
+      </div>
+      <div class="startBox" style="margin: auto;">
+        <div *ngIf="this.started==false" >
+          <div style="font-size: 30px; font-weight: bold; text-align: center;">
+            <button (click)="backendCall()" style=" font-weight: bold; cursor:pointer; background-color: transparent; color: white; font-size: 30px; border: none;">
+              Start session
+            </button>
+          </div>
+          <div class="select is-size-5" style="display: flex; justify-content: center; align-items: center;background-color: transparent; width: 140px; margin-left: 110px;">
+            User:
+            <select class="is-marginless"  id="selectOption" #users (change)="onSelectionChange(users.value)" style=" width: 80px; background-color: #2e4450; color: white; border: 2px red;">
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+        </div>
+        <div *ngIf="this.started==true">
+          <div style="font-size: 30px; font-weight: bold; text-align: center;margin-top: 25px;">
+            Loading...
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>

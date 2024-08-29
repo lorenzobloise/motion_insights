@@ -1,0 +1,47 @@
+#startButton{
+  width: 350px;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 35px;
+  font-weight: bold;
+  color: white;
+  border: solid rgb(22, 187, 187) 4px;
+}
+
+.startBox{
+width: 350px;
+height: 110px;
+border: solid rgb(22, 187, 187) 4px;
+border-radius: 10px;
+display: block;
+}
+
+.startBox.startAnimation{
+animation: ring 2s linear infinite;
+}
+
+.startBox.removeBorder{
+border: none;
+}
+
+@keyframes rings{
+0%{
+  transform: rotate(0deg);
+  box-shadow: 1px 5px 2px rgb(22, 187, 187) ;
+}
+50%{
+  transform: rotate(180deg);
+  box-shadow: 1px 5px 2px rgb(22, 187, 187) ;
+}
+100%{
+  transform: rotate(360deg);
+  box-shadow: 1px 5px 2px rgb(22, 187, 187) ;
+}
+}
+
+#selectOption::after {
+border-color: green transparent transparent transparent;
+}

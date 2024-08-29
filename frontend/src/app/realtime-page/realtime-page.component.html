@@ -1,0 +1,356 @@
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@2.5.0/dist/model-viewer.js"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-switch/dist/css/bulma-switch.min.css">
+<div id="dynamicInfo" style="display: none; position: fixed; border-radius: 10px; background-color: #2e4450; margin: auto; height: 60px;z-index: 1;  top: 5%; left: 50%; transform: translateX(-50%);">
+    <div class="box  is-paddingless pt-2 pb-2 pl-3 pr-3 columns is-flex is-centered" style="background-color: transparent; box-shadow: none;">
+        <div class="column is-size-6 has-text-weight-bold pr-6" style="color: white;">
+            Attività: {{activityDescription}}
+        </div>
+        <div class="column is-size-6 has-text-weight-bold" style="color: white; display: flex; height: 40px;">
+        </div>
+        <div class="column has-text-weight-bold pl-6">
+            <div class="buttons" (click)="endSession()">
+                <a class="button is-primary is-size-7 is-info">
+                    <strong>Stop Session</strong>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="alert2" class="alertProva is-size-5 is-marginless is-paddingless" style="display: flex;">
+  <div class="is-marginless is-paddingless" style="height: 60px; font-size: 22px; width: 370px;">
+    Stop the current session!
+  </div>
+  <div class="close-btn click">
+     <span class="has-text-weight-bold fa-times">X</span>
+  </div>
+</div>
+<body class="container1" style="background-color:azure;">
+    <section class="scrollForce is-paddingless is-marginless pt-2 mb-6 " style="">
+        <section id="navBar" class=" section is-paddingless  mt-2 ml-2 mr-2 pl-4 pr-4 pt-2 pb-2 is-fullwidth " >
+            <div class="columns my-custom-class is-desktop pt-1 pb-1 " style="background-color:#2e4450; height: 90px; ">
+                <div class="column is-12" style="background-color: transparent;">
+                  <section class="is-marginless is-justify-space-between">
+                    <div class="box is-paddingless is-fullwidth is-flex " style="background-color: transparent; box-shadow: none;align-items: center;">
+                        <div class="has-text-weight-bold" style="border-right: 3px white solid;" >
+                          <div class="buttons" (click)="goToHomePage()" style="">
+                            <a class="button is-primary is-size-4" style="background-color: #2e4450;">
+                              <img src="../../assets/logo.png" style="height: 60px;">
+                          </a>
+                          </div>
+                        </div>
+                        <div *ngIf="this.backendStarted==='true' && this.execution " class="has-text-weight-bold " >
+                          <div class="buttons" (click)="endSession()">
+                              <a class="button is-primary is-size-5 is-info">
+                              <strong>Stop Session</strong>
+                              </a>
+                          </div>
+                      </div>
+                      <div *ngIf="this.backendStarted==='true' && !this.execution" class="has-text-weight-bold " >
+                          <div class="buttons" (click)="endSession()">
+                              <div class="button is-primary is-size-5 is-info" style="width: 159.54px;">
+                                  <div class="snippet" data-title="dot-pulse">
+                                      <div class="stage">
+                                      <div class="dot-pulse"></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div *ngIf="this.backendStarted==='false' && !this.execution && !this.waitRestart" class="has-text-weight-bold " >
+                          <div class="buttons" (click)="reStartSession()">
+                              <a class="button is-primary is-size-5 is-info">
+                              <strong>Start New Session</strong><span class="ion ion-md-attach"></span>
+                              </a>
+                          </div>
+                      </div>
+                      <div *ngIf="this.backendStarted==='false' && !this.execution && this.waitRestart" class="has-text-weight-bold " >
+                        <div class="buttons" (click)="endSession()">
+                            <div class="button is-primary is-size-5 is-info" style="width: 159.54px;">
+                                <div class="snippet" data-title="dot-pulse">
+                                    <div class="stage">
+                                    <div class="dot-pulse"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="is-size-3 has-text-weight-bold pl-6 pr-6" style="color: white; border: 1px solid white; border-radius: 10px; display: flex;">
+                        <b [chronometer]="chronometer" [format]="format"> </b>
+                      </div>
+                      <div class=" is-size-4 has-text-weight-bold " style="color: white;" >
+                          Activity: {{activityDescription}}
+                      </div>
+                      <div class="is-size-4 has-text-weight-bold mr-5" style="color: white;">
+                        User: {{this.user}}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+            </div>
+        </section>
+        <section  id="realTimeCore" class="section is-paddingless pt-4 pl-4 pr-4 ml-2 mr-2 mt-5" style=" background-color: rgb(96, 196, 196); border-radius: 10px; height: 600px;">
+            <div class="columns is-desktop">
+                <div class="column is-two-fifths is-fullwidth" >
+                    <div class="box is-fullwidth is-paddingless is-marginless" style="height: 600px;background-color: transparent; box-shadow: none;">
+                        <model-viewer
+                            src="../../assets/Slow Run.gltf"
+                            ar ar-modes="webxr scene-viewer quick-look"
+                            camera-controls poster="poster.webp"
+                            shadow-intensity="1" exposure="1"
+                            min-camera-orbit="auto auto 356.4m"
+                            min-field-of-view="21.52deg">
+                            <button class="Hotspot" slot="hotspot-1" data-position="-0.000019073486328125m 138.19851619827023m 11.303748145410168m" data-normal="-0.023259876802243607m 0.5325588715979153m 0.8460732984874891m" data-visibility-attribute="visible">
+                            <div class="HotspotAnnotation" style="font-size: 10px;">A<sub>x</sub>={{current_tuple[0]}} <br> A<sub>y</sub>={{current_tuple[1]}} <br>A<sub>z</sub>={{current_tuple[2]}}
+                            </div>
+                            </button><button class="Hotspot" slot="hotspot-2" data-position="8.012251731409853m 16.284019653913106m 1.151817711432841m" data-normal="-0.042745417224082954m 0.005436965581248813m 0.9990712030238923m" data-visibility-attribute="visible">
+                            <div class="HotspotAnnotation" style="font-size: 10px;">A<sub>x</sub>={{current_tuple[5]}} <br> A<sub>y</sub>={{current_tuple[6]}} <br>A<sub>z</sub>={{current_tuple[7]}}</div>
+                            </button><button class="Hotspot" slot="hotspot-3" data-position="-71.33847285907362m 142.23099005725578m -3.1854537893398174m" data-normal="-0.028210233005952063m -0.6127230929127501m 0.7897940200869993m" data-visibility-attribute="visible">
+                            <div class="HotspotAnnotation" style="font-size: 10px;">A<sub>x</sub>={{current_tuple[17]}} <br> A<sub>y</sub>={{current_tuple[18]}} <br>A<sub>z</sub>={{current_tuple[19]}}</div>
+                            </button>
+                            <div class="progress-bar hide" slot="progress-bar">
+                            <div class="update-bar"></div>
+                            </div>
+                        </model-viewer>
+                    </div>
+                </div>
+                <div  id="realTimeAnalysisBox" class="column" style="background-color: transparent;;"  >
+                    <section class="is-marginless is-justify-space-between">
+                        <div class="box is-fullwidth is-paddingless is-flex " style="height: 50px;background-color: transparent; box-shadow: none;">
+                            <div id="heartBox" class="" style="width: 50;">
+                                <div id="heart2">
+                                </div>
+                            </div>
+                            <div id="textBox"  class="has-text-centered is-size-4 has-text-weight-bold pt-2 pr-6 pl-6">
+                                {{this.bpm}} Bpm
+                            </div>
+                            <div id="textBox" class="has-text-centered is-size-4 has-text-weight-bold pt-2 pr-6 pl-6" >
+                                Picchi Anomali: {{this.abnormalPeaks}}%
+                            </div>
+                        </div>
+                    </section>
+                    <section class="is-marginless is-justify-space-between mt-4"  >
+                        <div class="box is-fullwidth is-paddingless" style="background-color: transparent; box-shadow: none;">
+                            <div class="" >
+                              <canvas id="canvas1" style="height: 230px;box-shadow: 10px 8px 20px rgb(22, 22, 22);"></canvas>
+                            </div>
+                            <div id="textBox"  class="is-size-5 has-text-weight-bold pt-2 pr-5 pl-5" style="align-items: center;">
+                                Performance activity <br> classifier of mini-batch:
+                                <div style="border: 3px solid green; border-radius: 10px; color: green;" class="is-size-5 pl-2 pr-2 has-text-centered">
+                                    Activity {{this.batchPredictions[0]}}%
+                                </div>
+                                <div *ngIf="this.batchPredictions.length>1">
+                                  <div *ngFor="let element of this.batchPredictions; let i=index">
+                                    <div *ngIf="i>0 && i<3" style="border: 3px solid black; border-radius: 10px;" class="is-size-5 pl-2 pr-2 has-text-centered">
+                                        Activity {{element}}%
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="is-marginless is-justify-space-between mt-4" style="display: flex;">
+                        <div class="box is-fullwidth is-paddingless is-marginless" style="">
+                            <div id="charts" class="is-fullwidth is-paddingless is-marginless mt-4 " style="width: 80%; display: flex;" >
+                                <div  class="is-paddingless" *ngIf="showG1"  id="d2" style="display: flex;">
+                                    <div class="pr-4">
+                                        <app-bpm-chart style="width: 500px; height: 300px;"></app-bpm-chart>
+                                    </div>
+                                    <div  class="is-paddingless pt-3 pl-3 pr-3" style=" display: block;" >
+                                        <div class="is-size-5 has-text-centered has-text-weight-bold " style="">
+                                            BPM variation over time
+                                        </div>
+                                        <div class="field pl-5 pt-4" style=" " >
+                                            <input id="switchColorInfo" type="checkbox" name="switchColorInfo" class="switch is-info" [(ngModel)]="showG1">
+                                            <label for="switchColorInfo" class="checkbox-label"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div  class="is-paddingless is-marginless" *ngIf="!showG1"  id="d2" style="display: flex;">
+                                  <div id="MovementActivity" *ngIf="this.currentActivityIsDynamic" style="display: flex;">
+                                    <div class="pr-4">
+                                        <app-acc-chest-x-chart style="width: 500px; height: 300px;"></app-acc-chest-x-chart>
+                                    </div>
+                                    <div  class="is-paddingless pt-3 pl-3 pr-3" style=" display: block;" >
+                                        <div class="is-size-5 has-text-centered has-text-weight-bold " style="">
+                                            Acc<sub>chest</sub> variation over time
+                                        </div>
+                                        <div class="field pl-5 pt-4" style=" " >
+                                            <input id="switchExample" type="checkbox" name="switchExample" class="switch" [(ngModel)]="showG1">
+                                            <label for="switchExample" class="checkbox-label"></label>
+                                        </div>
+                                    </div>
+                                  </div>
+                                    <div id="NotMovementActivity" *ngIf="!this.currentActivityIsDynamic">
+                                      <div  class="is-paddingless is-marginless pt-3 pl-3 pr-3" style=" display: block; height: 200px; width: 733px; text-align: center;" >
+                                          <div class="is-size-4 has-text-centered has-text-weight-bold " style="">
+                                              Acc<sub>chest</sub> is not available for static activities
+                                          </div>
+                                          <div class="field pl-5 pt-4" style=" " >
+                                              <input id="switchExample" type="checkbox" name="switchExample" class="switch" [(ngModel)]="showG1">
+                                              <label for="switchExample" class="checkbox-label"></label>
+                                          </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </section>
+    <section *ngIf="this.numActivity==0" id="sessionStatistics" class="scrollForce is-marginless is-paddingless section pl-4 pr-4 ml-2 mr-2 pt-5 " style=" background-color: rgb(188, 221, 138);border-radius: 10px; height: 700px; position: relative; z-index: 0;">
+        <div class="box has-text-weight-bold is-size-3" style="color:rgb(188, 221, 138);">
+            Session Statistics
+       </div>
+        <div class="centered-item box is-size-4 has-text-weight-bold" style="width: 300px; height: 300px; text-align: center; display: block; position: relative;">
+            <div class="is-size-4 has-text-weight-bold">
+              Wait the end of at least one activity to see the session history data
+            </div>
+            <div class="is-fullwidth is-marginless is-paddingless" style="align-items: center; align-content: center;">
+                <div class="orizontal-align is-size-1" style="border-radius: 20%; border: 3px solid black; width: 70px; height: 70px;">
+                    !
+                </div>
+            </div>
+        </div>
+    </section>
+    <section *ngIf="this.numActivity>0" id="sessionStatistics" class="scrollForce section is-paddingless pt-4 pl-4 pr-4 ml-2 mr-2 mt-6 " style=" background-color: rgb(188, 221, 138);border-radius: 10px;height:700px">
+        <div class="column is-fullwidth is-size-3 ">
+           <div class="box has-text-weight-bold" style="color:rgb(188, 221, 138);">
+                Session Statistics
+           </div>
+        </div>
+        <div class="columns is-desktop is-paddingless is-marginless" >
+            <div class="column is-6 is-centered" style="align-items: center;">
+                <div class="box" style="min-height: 325px; display:block; padding-bottom: 0px;">
+                    <div class="is-size-4 has-text-weight-bold" style="text-align: center;">
+                      Average BPM variation per activity
+                    </div>
+                    <app-average-bpm-variation-chart></app-average-bpm-variation-chart>
+                </div>
+                <div class="box" style="height: 100px;">
+                    <div class="is-size-5" style=" ">
+                        User {{this.user}} has performed {{this.userDynamicAndStaticActivities[0]}} dynamic activities e {{this.userDynamicAndStaticActivities[1]}} static activities
+                    </div>
+                </div>
+            </div>
+            <div class="column is-6 is-centered" style="align-items: center;">
+                <div class="box" style="min-height: 325px; display:block; padding-bottom: 0px;">
+                    <div class="is-size-4 has-text-weight-bold" style="text-align: center;">
+                        Number of dynamic activities
+                    </div>
+                    <app-movement-activities-chart ></app-movement-activities-chart>
+                </div>
+                <div class="box" style="height: 100px; display: flex;">
+                    <div class="is-size-5" style=" width: 420px;">
+                        Average BPMs of user {{this.user}} in previous sessions have a standard deviation of:
+                    </div>
+                    <div class="is-size-2 " style="border: 2px solid black; border-radius: 10px; color: black;">
+                         {{this.stddev_avg_bpm}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section  id="sessionStatistics" class="scrollForce section is-paddingless pt-4 pl-4 pr-4 ml-2 mr-2 mt-6 mb-4" style=" background-color: rgb(255, 167, 102);border-radius: 10px;">
+        <div class="columns is-desktop is-paddingless is-marginless">
+            <div class="column is-fullwidth is-size-6" >
+                <div class="box" style="display: block;">
+                    <div class="is-size-3 has-text-weight-bold" style="color: rgb(255, 167, 102);">
+                        General Statistics
+                    </div>
+                    <div class="is-size-6">
+                      General statistics are computed from the previous sessions.<br>
+                      <b>Activity frequency</b> -> pie chart showing the number of times each activity has been performed<br>
+                      <b># activities per user</b> -> bar chart showing the number of activities each user has performed<br>
+                      <b>User chart</b> -> table confronting, for each user, the maximum acceleration and maximum % of abnormal peaks
+                    </div>
+                </div>
+                <div class="box" style="min-height: 300px; display:block; padding-bottom: 0px;">
+                    <div class="is-size-4 has-text-weight-bold" style="text-align: center;padding: 0px;">
+                        Activity frequency
+                    </div>
+                    <app-activity-frequency-chart></app-activity-frequency-chart>
+                </div>
+             </div>
+             <div class="column is-fullwidth is-size-6" style="display: block;" >
+                <div class="box is-marginless" style="min-height: 300px; display:block;">
+                    <div class="is-size-4 has-text-weight-bold" style="text-align: center;">
+                        # activites per user
+                    </div>
+                    <app-activities-per-user-chart></app-activities-per-user-chart>
+                </div>
+                <div class="is-paddinglessis-marginless mt-2 " style="margin-left: 75px;">
+                    <table class="table is-marginless is-paddingless" style="background-color: rgb(240, 240, 240);border-radius: 10px;">
+                        <thead>
+                            <tr>
+                              <th>User</th>
+                              <th>Maximum acceleration</th>
+                              <th>Maximum abnormal<br>peaks percentage</th>
+                            </tr>
+                          </thead>
+                          <tbody >
+                            <tr>
+                                <th>
+                                    <span style="color: rgba(255, 99, 132, 1);">User 1</span>
+                                </th>
+                                <td>
+                                    {{this.maxChestAcceleration[0]}} m/s<sup>2</sup>
+                                </td>
+                                <td>
+                                    {{this.maxPercAbnormalPeaks[0]}} %
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span style="color: rgba(54, 162, 235, 1);">User 2</span>
+                                </th>
+                                <td>
+                                    {{this.maxChestAcceleration[1]}} m/s<sup>2</sup>
+                                </td>
+                                <td>
+                                    {{this.maxPercAbnormalPeaks[1]}} %
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span style="color: rgba(255, 206, 86, 1);">User 3</span>
+                                </th>
+                                <td>
+                                    {{this.maxChestAcceleration[2]}} m/s<sup>2</sup>
+                                </td>
+                                <td>
+                                    {{this.maxPercAbnormalPeaks[2]}} %
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span style="color: rgba(75, 192, 192, 1)">User 4</span>
+                                </th>
+                                <td>
+                                    {{this.maxChestAcceleration[3]}} m/s<sup>2</sup>
+                                </td>
+                                <td>
+                                    {{this.maxPercAbnormalPeaks[3]}} %
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span style="color: rgba(153, 102, 255, 1);">User 5</span>
+                                </th>
+                                <td>
+                                    {{this.maxChestAcceleration[4]}} m/s<sup>2</sup>
+                                </td>
+                                <td>
+                                    {{this.maxPercAbnormalPeaks[4]}} %
+                                </td>
+                            </tr>
+                          </tbody>
+                    </table>
+                </div>
+             </div>
+        </div>
+    </section>
+</body>
+
